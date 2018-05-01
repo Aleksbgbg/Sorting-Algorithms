@@ -4,12 +4,17 @@
     using System.Linq;
 
     using Sorting.Algorithms.Core.Interfaces;
+    using Sorting.Algorithms.Core.Logging;
 
     internal class InsertionSort<T> : ISortingAlgorithm<T>
     {
         public T[] Sort(IEnumerable<T> elements)
         {
+            Logger.Default.Log(LogLevel.Info, "Initiating Insertion sort");
+
             List<T> sorted = elements.ToList();
+
+            Logger.Default.Log(LogLevel.Info, $"Initial array: {string.Join(" ", sorted)}");
 
             for (int subjectIndex = 1; subjectIndex < sorted.Count; ++subjectIndex)
             {
@@ -27,7 +32,11 @@
 
                     break;
                 }
+
+                Logger.Default.Log(LogLevel.Debug, $"Pass {subjectIndex}: {string.Join(" ", sorted)}");
             }
+
+            Logger.Default.Log(LogLevel.Info, $"Final array: {string.Join(" ", sorted)}");
 
             return sorted.ToArray();
         }

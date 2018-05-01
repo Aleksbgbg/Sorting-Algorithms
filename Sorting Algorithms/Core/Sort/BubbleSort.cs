@@ -4,12 +4,17 @@
     using System.Linq;
 
     using Sorting.Algorithms.Core.Interfaces;
+    using Sorting.Algorithms.Core.Logging;
 
     internal class BubbleSort<T> : ISortingAlgorithm<T>
     {
         public T[] Sort(IEnumerable<T> elements)
         {
+            Logger.Default.Log(LogLevel.Info, "Initiating Bubble sort");
+
             T[] array = elements.ToArray();
+
+            Logger.Default.Log(LogLevel.Info, $"Initial array: {string.Join(" ", array)}");
 
             for (int iteration = 1; iteration <= array.Length; ++iteration)
             {
@@ -31,11 +36,15 @@
                     movedElement = true;
                 }
 
+                Logger.Default.Log(LogLevel.Debug, $"Pass {iteration}: {string.Join(" ", array)}");
+
                 if (!movedElement)
                 {
                     break;
                 }
             }
+
+            Logger.Default.Log(LogLevel.Info, $"Final array: {string.Join(" ", array)}");
 
             return array;
         }
