@@ -44,6 +44,7 @@
     <Compile Include="Core\Logging\LogLevel.cs" />
     <Compile Include="Core\Sort\BubbleSort.cs" />
     <Compile Include="Core\Sort\InsertionSort.cs" />
+    <Compile Include="Core\Sort\QuickSort.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
