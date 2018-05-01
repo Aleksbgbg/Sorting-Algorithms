@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\ArrayExtensions.cs" />
+    <Compile Include="Core\EnumerableExtensions.cs" />
     <Compile Include="Core\Interfaces\ISortingAlgorithm.cs" />
     <Compile Include="Core\Logging\Logger.cs" />
     <Compile Include="Core\Logging\LogLevel.cs" />
