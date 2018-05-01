@@ -11,15 +11,21 @@
         {
             List<T> sorted = elements.ToList();
 
-            for (int iteration = 0; iteration < sorted.Count; ++iteration)
+            for (int subjectIndex = 1; subjectIndex < sorted.Count; ++subjectIndex)
             {
-                for (int current = 0; current < sorted.Count; ++current)
-                {
-                    if (Comparer<T>.Default.Compare(sorted[iteration], sorted[current]) != -1) continue;
+                T subject = sorted[subjectIndex];
 
-                    T temporary = sorted[iteration];
-                    sorted[iteration] = sorted[current];
-                    sorted[current] = temporary;
+                for (int insertionIndex = subjectIndex - 1; ; --insertionIndex)
+                {
+                    if (insertionIndex >= 0 && Comparer<T>.Default.Compare(sorted[insertionIndex], subject) > -1)
+                    {
+                        continue;
+                    }
+
+                    sorted.RemoveAt(subjectIndex);
+                    sorted.Insert(insertionIndex + 1, subject);
+
+                    break;
                 }
             }
 
