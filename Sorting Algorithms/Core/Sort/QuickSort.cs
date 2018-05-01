@@ -23,7 +23,7 @@
             return array;
         }
 
-        private void Sort(T[] elements, int start, int end)
+        private void Sort(T[] array, int start, int end)
         {
             if (end - start < 2)
             {
@@ -31,26 +31,26 @@
             }
 
             int pivotIndex = end - 1;
-            T pivot = elements[pivotIndex];
+            T pivot = array[pivotIndex];
 
             for (int index = start; index < pivotIndex; ++index)
             {
-                if (Comparer<T>.Default.Compare(elements[index], pivot) <= 0)
+                if (Comparer<T>.Default.Compare(array[index], pivot) <= 0)
                 {
                     continue;
                 }
 
                 for (int current = index; current < pivotIndex; ++current)
                 {
-                    elements.Swap(current, current + 1);
+                    array.Swap(current, current + 1);
                 }
 
                 --pivotIndex;
                 --index;
             }
 
-            Sort(elements, start, pivotIndex);
-            Sort(elements, pivotIndex + 1, end);
+            Sort(array, start, pivotIndex);
+            Sort(array, pivotIndex + 1, end);
         }
     }
 }
