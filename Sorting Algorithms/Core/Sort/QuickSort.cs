@@ -1,5 +1,6 @@
 ﻿namespace Sorting.Algorithms.Core.Sort
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -21,21 +22,27 @@
             List<T> left = new List<T>();
             List<T> right = new List<T>();
 
-            foreach (T element in array)
+            for (int index = 0; index < array.Length - 1; ++index)
             {
-                int comparison = Comparer<T>.Default.Compare(element, pivot);
+                T element = array[index];
 
-                if (comparison == -1)
+                if (Comparer<T>.Default.Compare(element, pivot) == -1)
                 {
                     left.Add(element);
+                    continue;
                 }
-                else if (comparison == 1)
-                {
-                    right.Add(element);
-                }
+
+                right.Add(element);
             }
 
-            return Sort(left).Append(pivot).Union(Sort(right)).ToArray();
+            T[] sortedLeft = Sort(left);
+            T[] sortedRight = Sort(right);
+
+            sortedLeft.CopyTo(array, 0);
+            array[sortedLeft.Length] = pivot;
+            sortedRight.CopyTo(array, sortedLeft.Length + 1);
+
+            return array;
         }
     }
 }
