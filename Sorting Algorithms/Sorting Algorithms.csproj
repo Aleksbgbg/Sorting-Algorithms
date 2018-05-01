@@ -40,6 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Interfaces\ISortingAlgorithm.cs" />
+    <Compile Include="Core\Logging\Logger.cs" />
+    <Compile Include="Core\Logging\LogLevel.cs" />
     <Compile Include="Core\Sort\BubbleSort.cs" />
     <Compile Include="Core\Sort\InsertionSort.cs" />
     <Compile Include="Program.cs" />
