@@ -4,14 +4,21 @@
     using System.Linq;
 
     using Sorting.Algorithms.Core.Interfaces;
+    using Sorting.Algorithms.Core.Logging;
 
     internal class QuickSort<T> : ISortingAlgorithm<T>
     {
         public T[] Sort(IEnumerable<T> elements)
         {
+            Logger.Default.Log(LogLevel.Info, "Initiating Quick sort");
+
             T[] array = elements.ToArray();
 
+            Logger.Default.Log(LogLevel.Info, $"Initial array: {array.JoinWithSpace()}");
+
             Sort(array, 0, array.Length);
+
+            Logger.Default.Log(LogLevel.Info, $"Final array: {array.JoinWithSpace()}");
 
             return array;
         }
