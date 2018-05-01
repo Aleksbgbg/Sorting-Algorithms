@@ -14,7 +14,7 @@
 
             T[] array = elements.ToArray();
 
-            Logger.Default.Log(LogLevel.Info, $"Initial array: {string.Join(" ", array)}");
+            Logger.Default.Log(LogLevel.Info, $"Initial array: {array.JoinWithSpace()}");
 
             for (int iteration = 1; iteration <= array.Length; ++iteration)
             {
@@ -36,7 +36,7 @@
                     movedElement = true;
                 }
 
-                Logger.Default.Log(LogLevel.Debug, $"Pass {iteration}: {string.Join(" ", array)}");
+                Logger.Default.Log(LogLevel.Debug, $"Pass {iteration}: {array.JoinWithSpace()}");
 
                 if (!movedElement)
                 {
@@ -44,7 +44,7 @@
                 }
             }
 
-            Logger.Default.Log(LogLevel.Info, $"Final array: {string.Join(" ", array)}");
+            Logger.Default.Log(LogLevel.Info, $"Final array: {array.JoinWithSpace()}");
 
             return array;
         }

@@ -14,7 +14,7 @@
 
             List<T> sorted = elements.ToList();
 
-            Logger.Default.Log(LogLevel.Info, $"Initial array: {string.Join(" ", sorted)}");
+            Logger.Default.Log(LogLevel.Info, $"Initial array: {sorted.JoinWithSpace()}");
 
             for (int subjectIndex = 1; subjectIndex < sorted.Count; ++subjectIndex)
             {
@@ -33,10 +33,10 @@
                     break;
                 }
 
-                Logger.Default.Log(LogLevel.Debug, $"Pass {subjectIndex}: {string.Join(" ", sorted)}");
+                Logger.Default.Log(LogLevel.Debug, $"Pass {subjectIndex}: {sorted.JoinWithSpace()}");
             }
 
-            Logger.Default.Log(LogLevel.Info, $"Final array: {string.Join(" ", sorted)}");
+            Logger.Default.Log(LogLevel.Info, $"Final array: {sorted.JoinWithSpace()}");
 
             return sorted.ToArray();
         }
