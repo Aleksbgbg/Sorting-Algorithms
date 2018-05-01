@@ -25,32 +25,36 @@
 
         private void Sort(T[] array, int start, int end)
         {
-            if (end - start < 2)
+            while (true)
             {
-                return;
-            }
-
-            int pivotIndex = end - 1;
-            T pivot = array[pivotIndex];
-
-            for (int index = start; index < pivotIndex; ++index)
-            {
-                if (Comparer<T>.Default.Compare(array[index], pivot) <= 0)
+                if (end - start < 2)
                 {
-                    continue;
+                    return;
                 }
 
-                for (int current = index; current < pivotIndex; ++current)
+                int pivotIndex = end - 1;
+                T pivot = array[pivotIndex];
+
+                for (int index = start; index < pivotIndex; ++index)
                 {
-                    array.Swap(current, current + 1);
+                    if (Comparer<T>.Default.Compare(array[index], pivot) <= 0)
+                    {
+                        continue;
+                    }
+
+                    for (int current = index; current < pivotIndex; ++current)
+                    {
+                        array.Swap(current, current + 1);
+                    }
+
+                    --pivotIndex;
+                    --index;
                 }
 
-                --pivotIndex;
-                --index;
-            }
+                Sort(array, start, pivotIndex);
 
-            Sort(array, start, pivotIndex);
-            Sort(array, pivotIndex + 1, end);
+                start = pivotIndex + 1;
+            }
         }
     }
 }
