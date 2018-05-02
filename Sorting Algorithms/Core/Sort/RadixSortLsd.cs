@@ -18,24 +18,15 @@
 
         public T[] Sort(IEnumerable<T> elements)
         {
+            Logger.Default.Log(LogLevel.Info, "Initiating Radix sort (LSD)");
+
             T[] array = elements.ToArray();
+
+            Logger.Default.Log(LogLevel.Info, $"Initial array: {array.JoinWithSpace()}");
 
             if (array is int[] intArray)
             {
                 Sort(intArray);
-            }
-
-            return array;
-        }
-
-        private int[] Sort(int[] array)
-        {
-            int maxValue = array.Max();
-
-            for (int iteration = 0; (int)Math.Pow(_base, iteration) <= maxValue; ++iteration)
-            {
-                Logger.Default.Log(LogLevel.Debug, array.JoinWithSpace());
-                array = GetArray(GetBuckets(array, iteration));
             }
 
             Logger.Default.Log(LogLevel.Info, $"Final array: {array.JoinWithSpace()}");
@@ -43,42 +34,38 @@
             return array;
         }
 
-        private List<int>[] GetBuckets(int[] array, int digitIndex)
+        private void Sort(int[] array)
         {
-            List<int>[] buckets = new List<int>[_base];
+            int maxValue = array.Max();
 
-            for (int index = 0; index < buckets.Length; ++index)
+            int placeValue;
+
+            for (int iteration = 0; (placeValue = (int)Math.Pow(_base, iteration)) <= maxValue; ++iteration)
             {
-                buckets[index] = new List<int>();
+                List<int>[] buckets = new List<int>[_base];
+
+                for (int index = 0; index < buckets.Length; ++index)
+                {
+                    buckets[index] = new List<int>();
+                }
+
+                foreach (int element in array)
+                {
+                    buckets[element / placeValue % _base].Add(element);
+                }
+
+                Logger.Default.Log(LogLevel.Debug, $"Buckets: {buckets.Select(bucket => bucket.JoinWithSpace()).Join(" | ")}");
+
+                int currentIndex = 0;
+
+                foreach (List<int> bucket in buckets)
+                {
+                    bucket.CopyTo(array, currentIndex);
+                    currentIndex += bucket.Count;
+                }
+
+                Logger.Default.Log(LogLevel.Debug, $"Pass {iteration + 1}: {array.JoinWithSpace()}");
             }
-
-            foreach (int element in array)
-            {
-                int bucketIndex = element / (int)Math.Pow(_base, digitIndex) % _base;
-
-                Logger.Default.Log(LogLevel.Debug, $"{element} : {bucketIndex}");
-
-                buckets[bucketIndex].Add(element);
-            }
-
-            Logger.Default.Log(LogLevel.Debug, $"Buckets: {buckets.Select(x => x.JoinWithSpace()).Join(" | ")}");
-
-            return buckets;
-        }
-
-        private int[] GetArray(List<int>[] buckets)
-        {
-            int[] array = new int[buckets.Sum(list => list.Count)];
-
-            int currentIndex = 0;
-
-            foreach (List<int> bucket in buckets)
-            {
-                bucket.CopyTo(array, currentIndex);
-                currentIndex += bucket.Count;
-            }
-
-            return array;
         }
     }
 }
