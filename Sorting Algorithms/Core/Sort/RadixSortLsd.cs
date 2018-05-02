@@ -36,19 +36,19 @@
 
         private void Sort(int[] array)
         {
+            List<int>[] buckets = new List<int>[_base];
+
+            for (int index = 0; index < buckets.Length; ++index)
+            {
+                buckets[index] = new List<int>();
+            }
+
             int maxValue = array.Max();
 
             int placeValue;
 
             for (int iteration = 0; (placeValue = (int)Math.Pow(_base, iteration)) <= maxValue; ++iteration)
             {
-                List<int>[] buckets = new List<int>[_base];
-
-                for (int index = 0; index < buckets.Length; ++index)
-                {
-                    buckets[index] = new List<int>();
-                }
-
                 foreach (int element in array)
                 {
                     buckets[element / placeValue % _base].Add(element);
@@ -56,12 +56,13 @@
 
                 Logger.Default.Log(LogLevel.Debug, $"Buckets: {buckets.Select(bucket => bucket.JoinWithSpace()).Join(" | ")}");
 
-                int currentIndex = 0;
+                int arrayCopyIndex = 0;
 
                 foreach (List<int> bucket in buckets)
                 {
-                    bucket.CopyTo(array, currentIndex);
-                    currentIndex += bucket.Count;
+                    bucket.CopyTo(array, arrayCopyIndex);
+                    arrayCopyIndex += bucket.Count;
+                    bucket.Clear();
                 }
 
                 Logger.Default.Log(LogLevel.Debug, $"Pass {iteration + 1}: {array.JoinWithSpace()}");
