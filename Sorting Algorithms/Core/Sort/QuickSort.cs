@@ -1,5 +1,6 @@
 ﻿namespace Sorting.Algorithms.Core.Sort
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -42,10 +43,10 @@
                         continue;
                     }
 
-                    for (int current = index; current < pivotIndex; ++current)
-                    {
-                        array.Swap(current, current + 1);
-                    }
+                    // Shift higher value to the right of the pivot
+                    T higherValue = array[index];
+                    Array.Copy(array, index + 1, array, index, pivotIndex - index);
+                    array[pivotIndex] = higherValue;
 
                     --pivotIndex;
                     --index;
