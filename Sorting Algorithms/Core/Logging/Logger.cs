@@ -1,51 +1,24 @@
 ﻿namespace Sorting.Algorithms.Core.Logging
 {
     using System;
-    using System.Text;
+    using System.Collections.Generic;
+    using System.Linq;
 
     internal class Logger
     {
-        private readonly StringBuilder _infoLog = new StringBuilder();
-
-        private readonly StringBuilder _debugLog = new StringBuilder();
+        private readonly List<LogEntry> _logEntries = new List<LogEntry>();
 
         internal static Logger Default { get; } = new Logger();
 
         internal void Log(LogLevel logLevel, string message)
         {
-            switch (logLevel)
-            {
-                case LogLevel.Info:
-                    _infoLog.AppendLine(message);
-                    _debugLog.AppendLine(message);
-                    break;
-
-                case LogLevel.Debug:
-                    _debugLog.AppendLine(message);
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(logLevel), logLevel, "LogLevel must be Debug or Info.");
-            }
+            _logEntries.Add(new LogEntry(logLevel, message));
         }
 
         internal void Flush(LogLevel logLevel)
         {
-            switch (logLevel)
-            {
-                case LogLevel.Info:
-                    Console.Write(_infoLog);
-                    _infoLog.Clear();
-                    break;
-
-                case LogLevel.Debug:
-                    Console.Write(_debugLog);
-                    _debugLog.Clear();
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(logLevel), logLevel, "LogLevel must be Debug or Info.");
-            }
+            Console.Write(_logEntries.Where(entry => entry.LogLevel.HasFlag(logLevel)).Select(logEntry => logEntry.Entry).Join("\n"));
+            _logEntries.Clear();
         }
     }
 }
