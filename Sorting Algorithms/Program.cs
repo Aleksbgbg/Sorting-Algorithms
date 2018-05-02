@@ -24,7 +24,7 @@
                 Logger.Default.Log(LogLevel.Info, string.Empty);
             }
 
-            Logger.Default.Flush(LogLevel.Debug);
+            Logger.Default.Flush(LogLevel.Info & LogLevel.Debug);
         }
 
         private static int[] GenerateNumbers(int count = 10, int range = 100)
