@@ -22,7 +22,7 @@
 
                 for (int index = 0; index < array.Length - iteration; ++index)
                 {
-                    if (Comparer<T>.Default.Compare(array[index], array[index + 1]) < 1)
+                    if (Comparer<T>.Default.Compare(array[index], array[index + 1]) <= 0)
                     {
                         continue;
                     }

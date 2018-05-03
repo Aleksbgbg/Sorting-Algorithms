@@ -22,7 +22,7 @@
 
                 for (int insertionIndex = subjectIndex - 1; ; --insertionIndex)
                 {
-                    if (insertionIndex >= 0 && Comparer<T>.Default.Compare(array[insertionIndex], subject) > -1)
+                    if (insertionIndex >= 0 && Comparer<T>.Default.Compare(array[insertionIndex], subject) >= 0)
                     {
                         continue;
                     }
