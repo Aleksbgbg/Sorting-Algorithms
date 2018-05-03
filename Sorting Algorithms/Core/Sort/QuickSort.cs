@@ -43,10 +43,7 @@
                         continue;
                     }
 
-                    // Shift higher value to the right of the pivot
-                    T higherValue = array[index];
-                    Array.Copy(array, index + 1, array, index, pivotIndex - index);
-                    array[pivotIndex] = higherValue;
+                    array.ShiftElement(index, pivotIndex);
 
                     --pivotIndex;
                     --index;

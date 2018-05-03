@@ -12,33 +12,32 @@
         {
             Logger.Default.Log(LogLevel.Info, "Initiating Insertion sort");
 
-            List<T> sorted = elements.ToList();
+            T[] array = elements.ToArray();
 
-            Logger.Default.Log(LogLevel.Info, $"Initial array: {sorted.JoinWithSpace()}");
+            Logger.Default.Log(LogLevel.Info, $"Initial array: {array.JoinWithSpace()}");
 
-            for (int subjectIndex = 1; subjectIndex < sorted.Count; ++subjectIndex)
+            for (int subjectIndex = 1; subjectIndex < array.Length; ++subjectIndex)
             {
-                T subject = sorted[subjectIndex];
+                T subject = array[subjectIndex];
 
                 for (int insertionIndex = subjectIndex - 1; ; --insertionIndex)
                 {
-                    if (insertionIndex >= 0 && Comparer<T>.Default.Compare(sorted[insertionIndex], subject) > -1)
+                    if (insertionIndex >= 0 && Comparer<T>.Default.Compare(array[insertionIndex], subject) > -1)
                     {
                         continue;
                     }
 
-                    sorted.RemoveAt(subjectIndex);
-                    sorted.Insert(insertionIndex + 1, subject);
+                    array.ShiftElement(subjectIndex, insertionIndex + 1);
 
                     break;
                 }
 
-                Logger.Default.Log(LogLevel.Debug, $"Pass {subjectIndex}: {sorted.JoinWithSpace()}");
+                Logger.Default.Log(LogLevel.Debug, $"Pass {subjectIndex}: {array.JoinWithSpace()}");
             }
 
-            Logger.Default.Log(LogLevel.Info, $"Final array: {sorted.JoinWithSpace()}");
+            Logger.Default.Log(LogLevel.Info, $"Final array: {array.JoinWithSpace()}");
 
-            return sorted.ToArray();
+            return array;
         }
     }
 }

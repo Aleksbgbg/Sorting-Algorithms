@@ -22,16 +22,12 @@
 
                 for (int index = 0; index < array.Length - iteration; ++index)
                 {
-                    T current = array[index];
-                    T next = array[index + 1];
-
-                    if (Comparer<T>.Default.Compare(current, next) < 1)
+                    if (Comparer<T>.Default.Compare(array[index], array[index + 1]) < 1)
                     {
                         continue;
                     }
 
-                    array[index + 1] = current;
-                    array[index] = next;
+                    array.Swap(index, index + 1);
 
                     movedElement = true;
                 }
