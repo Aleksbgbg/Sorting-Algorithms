@@ -2,7 +2,7 @@
 {
     using System;
 
-    using Sorting.Algorithms.Core.Interfaces;
+    using Sorting.Algorithms.Core;
     using Sorting.Algorithms.Core.Logging;
     using Sorting.Algorithms.Core.Sort;
 

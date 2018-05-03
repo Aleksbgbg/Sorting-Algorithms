@@ -1,4 +1,4 @@
-﻿namespace Sorting.Algorithms.Core.Interfaces
+﻿namespace Sorting.Algorithms.Core
 {
     using System.Collections.Generic;
 
