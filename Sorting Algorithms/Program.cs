@@ -8,6 +8,8 @@
 
     internal static class Program
     {
+        private static readonly Random Random = new Random();
+
         private static void Main()
         {
             int[] numbers = GenerateNumbers();
@@ -16,7 +18,7 @@
             {
                     new BubbleSort<int>(),
                     new InsertionSort<int>(),
-                    new QuickSort<int>(),
+                    new QuickSort<int>((start, end) => Random.Next(start, end)),
                     new RadixSortLsd<int>()
             })
             {
@@ -29,13 +31,11 @@
 
         private static int[] GenerateNumbers(int count = 10, int range = 100)
         {
-            Random random = new Random();
-
             int[] numbers = new int[count];
 
             for (int index = 0; index < numbers.Length; ++index)
             {
-                numbers[index] = random.Next(range);
+                numbers[index] = Random.Next(range);
             }
 
             return numbers;
