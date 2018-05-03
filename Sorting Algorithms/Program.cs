@@ -12,17 +12,20 @@
 
         private static void Main()
         {
-            int[] numbers = GenerateNumbers();
+            PerformSorts(GenerateNumbers());
+        }
 
-            foreach (ISortingAlgorithm<int> algorithm in new ISortingAlgorithm<int>[]
+        private static void PerformSorts<T>(T[] data)
+        {
+            foreach (ISortingAlgorithm<T> algorithm in new ISortingAlgorithm<T>[]
             {
-                    new BubbleSort<int>(),
-                    new InsertionSort<int>(),
-                    new QuickSort<int>((start, end) => Random.Next(start, end)),
-                    new RadixSortLsd<int>()
+                    new BubbleSort<T>(),
+                    new InsertionSort<T>(),
+                    new QuickSort<T>((start, end) => Random.Next(start, end)),
+                    new RadixSortLsd<T>()
             })
             {
-                algorithm.Sort(numbers);
+                algorithm.Sort(data);
                 Logger.Default.Log(LogLevel.Info, string.Empty);
             }
 
