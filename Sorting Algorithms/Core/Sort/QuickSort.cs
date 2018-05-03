@@ -9,6 +9,17 @@
 
     internal class QuickSort<T> : ISortingAlgorithm<T>
     {
+        private readonly Func<int, int, int> _pivotIndexPicker;
+
+        internal QuickSort() : this((start, end) => end - 1)
+        {
+        }
+
+        internal QuickSort(Func<int, int, int> pivotIndexPicker)
+        {
+            _pivotIndexPicker = pivotIndexPicker;
+        }
+
         public T[] Sort(IEnumerable<T> elements)
         {
             Logger.Default.Log(LogLevel.Info, "Initiating Quick sort");
@@ -33,9 +44,12 @@
                     return;
                 }
 
-                int pivotIndex = end - 1;
+                int pivotIndex = _pivotIndexPicker(start, end);
                 T pivot = array[pivotIndex];
 
+                bool pivotIsLast = pivotIndex == end - 1;
+
+                // Scan elements below pivot, and if they are bigger than the pivot, move them above the pivot
                 for (int index = start; index < pivotIndex; ++index)
                 {
                     if (Comparer<T>.Default.Compare(array[index], pivot) <= 0)
@@ -47,6 +61,22 @@
 
                     --pivotIndex;
                     --index;
+                }
+
+                if (!pivotIsLast) // Unnecessary when the pivot is last, as only elements bigger than the pivot would have been shifted above
+                {
+                    // Scan elements above pivot, and if they are smaller than the pivot, move them below the pivot
+                    for (int index = pivotIndex + 1; index < end; ++index)
+                    {
+                        if (Comparer<T>.Default.Compare(array[index], pivot) >= 0)
+                        {
+                            continue;
+                        }
+
+                        array.ShiftElement(index, pivotIndex);
+
+                        ++pivotIndex;
+                    }
                 }
 
                 Sort(array, start, pivotIndex);
