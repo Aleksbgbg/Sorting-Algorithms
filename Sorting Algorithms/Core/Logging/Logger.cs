@@ -4,6 +4,8 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    using Sorting.Algorithms.Core.Extensions;
+
     internal class Logger
     {
         private readonly List<LogEntry> _logEntries = new List<LogEntry>();

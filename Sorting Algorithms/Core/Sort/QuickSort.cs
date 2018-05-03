@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    using Sorting.Algorithms.Core.Extensions;
     using Sorting.Algorithms.Core.Interfaces;
     using Sorting.Algorithms.Core.Logging;
 

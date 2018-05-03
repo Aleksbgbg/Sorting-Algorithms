@@ -1,4 +1,4 @@
-﻿namespace Sorting.Algorithms.Core
+﻿namespace Sorting.Algorithms.Core.Extensions
 {
     internal static class ArrayExtensions
     {
