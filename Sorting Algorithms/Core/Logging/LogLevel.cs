@@ -6,6 +6,7 @@
     internal enum LogLevel
     {
         Info = 0x1,
-        Debug = 0x2
+        Debug = 0x2,
+        Trace = 0x4
     }
 }
