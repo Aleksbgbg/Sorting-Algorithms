@@ -1,10 +1,14 @@
 ﻿namespace Sorting.Algorithms
 {
     using System;
+    using System.Diagnostics;
 
     using Sorting.Algorithms.Core;
+    using Sorting.Algorithms.Core.Extensions;
     using Sorting.Algorithms.Core.Logging;
     using Sorting.Algorithms.Core.Sort;
+
+    using static System.Console;
 
     internal static class Program
     {
@@ -12,7 +16,7 @@
 
         private static void Main()
         {
-            PerformSorts(GenerateNumbers());
+            WriteLine(new QuickSort<int>().Sort(new int[] { }).JoinWithSpace());
         }
 
         private static void PerformSorts<T>(T[] data)
@@ -29,7 +33,22 @@
                 Logger.Default.Log(LogLevel.Info, string.Empty);
             }
 
-            Logger.Default.Flush(LogLevel.Info & LogLevel.Debug);
+            Logger.Default.Flush(LogLevel.Trace);
+        }
+
+        private static void Profile(ISortingAlgorithm<int> sortingAlgorithm)
+        {
+            Logger.Default.Log(LogLevel.Debug, $"Profiling {sortingAlgorithm.GetType().Name}");
+
+            int[] numbers = GenerateNumbers();
+
+            Stopwatch stopwatch = Stopwatch.StartNew();
+
+            sortingAlgorithm.Sort(numbers);
+
+            stopwatch.Stop();
+
+            Logger.Default.Log(LogLevel.Trace, $"Results: {stopwatch.ElapsedTicks} ticks; {stopwatch.ElapsedMilliseconds} ms ({stopwatch.Elapsed:T})");
         }
 
         private static int[] GenerateNumbers(int count = 10, int range = 100)
